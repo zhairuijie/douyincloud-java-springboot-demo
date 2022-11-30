@@ -160,7 +160,7 @@ under the License.
             <id>aliyun</id>
             <name>aliyun</name>
             <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
-            <mirrorOf>*</mirrorOf>
+            <mirrorOf>central</mirrorOf>
         </mirror>
     </mirrors>
 
