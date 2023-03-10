@@ -8,6 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.Scanner;
+
 @RestController
 public class HelloController {
 
@@ -41,4 +48,54 @@ public class HelloController {
         }
         return response;
     }
+
+    //https验证
+    @GetMapping("/api/https")
+    public String https() throws IOException {
+        URL url = new URL("https://developer.toutiao.com/api/apps/qrcode");
+        HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
+        httpConn.setRequestMethod("POST");
+
+        httpConn.setRequestProperty("Content-Type", "application/json");
+
+        httpConn.setDoOutput(true);
+        OutputStreamWriter writer = new OutputStreamWriter(httpConn.getOutputStream());
+        writer.write("{\n    \"appname\": \"douyin\"\n}");
+        writer.flush();
+        writer.close();
+        httpConn.getOutputStream().close();
+
+        InputStream responseStream = httpConn.getResponseCode() / 100 == 2
+                ? httpConn.getInputStream()
+                : httpConn.getErrorStream();
+        Scanner s = new Scanner(responseStream).useDelimiter("\\A");
+        String response = s.hasNext() ? s.next() : "";
+        return response;
+    }
+
+    //http验证
+    @GetMapping("/api/http")
+    public String http() throws IOException {
+        URL url = new URL("http://developer.toutiao.com/api/apps/qrcode");
+        HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
+        httpConn.setRequestMethod("POST");
+
+        httpConn.setRequestProperty("Content-Type", "application/json");
+
+        httpConn.setDoOutput(true);
+        OutputStreamWriter writer = new OutputStreamWriter(httpConn.getOutputStream());
+        writer.write("{\n    \"appname\": \"douyin\"\n}");
+        writer.flush();
+        writer.close();
+        httpConn.getOutputStream().close();
+
+        InputStream responseStream = httpConn.getResponseCode() / 100 == 2
+                ? httpConn.getInputStream()
+                : httpConn.getErrorStream();
+        Scanner s = new Scanner(responseStream).useDelimiter("\\A");
+        String response = s.hasNext() ? s.next() : "";
+        return response;
+    }
 }
+
+
