@@ -28,6 +28,7 @@ public class HelloController {
     public JsonResponse hello(@RequestParam(value = "target", defaultValue = "mongodb") String target) {
         JsonResponse response = new JsonResponse();
         try {
+            System.out.println("增加了一行");
             HelloService helloService = factory.getHelloService(target);
             response.success("env:" + envMark + " hello " +  helloService.hello(target));
         }catch (Exception e){
