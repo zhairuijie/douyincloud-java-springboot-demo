@@ -31,6 +31,7 @@ public class HelloController {
             HelloService helloService = factory.getHelloService(target);
             System.out.println("第三次构建");
             System.out.println("第四次部署");
+            System.out.println("第五次部署");
             response.success("第二次部署成功");
         }catch (Exception e){
             response.failure("unknown error");
