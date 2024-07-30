@@ -29,6 +29,7 @@ public class HelloController {
         JsonResponse response = new JsonResponse();
         try {
             System.out.println("部署2：增加了一行");
+            System.out.println("部署3：增加了一行");
             HelloService helloService = factory.getHelloService(target);
             response.success("env:" + envMark + " hello " +  helloService.hello(target));
         }catch (Exception e){
